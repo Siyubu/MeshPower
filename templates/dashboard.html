@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load define_action %}
+{% block title %}Dashboard{% endblock title %}
+{% load static %}
+{% block extra_css %}
+    <style>
+        table {
+            width: 100%;
+        }
+
+        #example_filter {
+            float: right;
+        }
+
+        #example_paginate {
+            float: right;
+        }
+
+        label {
+            display: inline-flex;
+            margin-bottom: .5rem;
+           margin-top: .5rem;
+        }
+        .notif{
+            color:red;
+            display: none;
+        }
+    </style>
+{% endblock extra_css %}
+{% block extra_scripts %}
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                searching:true,
+            });  
+        });
+    </script>
+{% endblock extra_scripts %}
+{% block content %}
+
+    <br>
+    <form method="GET" class="detail-board" action="{% url 'search_board' %}">
+        <input name="serialNum" value='{{ request.GET.serialNum }}' placeholder="Board serial number...">
+        <button class='btn btn-success' type='submit'>Search</button>
+    </form>
+    <div class="notif">
+        <p>Empty serial number not allowed</p>
+    </div>
+    <br>
+    <div class='row'>
+        {% for bt in boardTypes %}
+            <div class='card col-md-3 card-content'>
+                <div class='card-body'>
+                    <a href="{% url 'board_type_history' bt.board_type_id %}">
+                        <h5 class='card-title'>{{ bt.name }}</h5>
+                    </a>
+                    
+                    <a href="{% url 'repair_record_history' bt.board_type_id %}">
+                    <p class='card-text text-danger'>
+                        Repair Records:  
+                        {% for key,value in repairs.items %}
+                        {% if key == bt %}
+                            {{value}}
+                          {% endif %}
+                        {% endfor %}  
+                    </p>
+                </a>
+            
+                </div>
+            </div>
+        
+
+        {% endfor %}
+
+    </div>
+    <hr/>
+    {#<div id="container">#}
+
+    <table id="example" class="display table-striped table-bordered table-sm" style="width:100%">
+        <thead>
+        <tr>
+            <th>Board ID</th>
+            <th>Board Type</th>
+            <th>Board Serial Number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bt in boardTypes %}
+            {% for b in bt.board_set.all %}
+                <tr>
+                    <td>{{ b.board_id }}</td>
+                    <td>{{ b.board_type }}</td>
+                    <td>{{ b.serial_number }}</td>
+                    <td>
+                        <a href="{% url 'rrepair' b.serial_number %}" class="btn btn-primary">Add a Repair Record</a>
+                        <a href="{% url 'board_history' b.board_id %}"><span class="btn btn-info">Detail</span></a>
+                        <a href="{% url 'update' b.board_id %}"><span class="btn btn-secondary">Update</span></a>
+                        <a href="{% url 'delete' b.board_id %}"><span class="btn btn-danger">Delete</span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Board ID</th>
+            <th>Board Type</th>
+            <th>Board Serial Number</th>
+            <th>Actions</th>
+        </tr>
+        </tfoot>
+    </table>
+    <br>
+    <br>
+    <div style="text-align: center;">
+        <button class=" btn"><a href="{% url 'board' %}">Add New Board</a></button>
+    </div>
+
+
+{% endblock content %}
+

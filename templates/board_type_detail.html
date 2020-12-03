@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Repair Record{% endblock title %}
+{% load static %}
+{% block content %}
+    {% csrf_token %}
+    <br />
+    <br />
+    <div style="text-align: center;">
+        <h2>Board Type Detail</h2>
+    </div>
+    <br />
+    <div style="text-align: right;">
+    <a href="{% url 'new_board' boardTypeDetail.board_type_id %}" float="right"><span class="btn btn-primary"> Add a board Type Fault</span></a>
+    <a href="{% url 'delete_board_type' boardTypeDetail.board_type_id %}" float="left"><span class="btn btn-danger">Delete This Board Type</span></a>
+    </div>
+    <p><b>Board Type ID:</b>&nbsp {{ boardTypeDetail.board_type_id }}</p>
+    <p><b>Board Type Name:</b>&nbsp{{ boardTypeDetail.name }}</p>
+    <p><b>board type fault:</b>
+        <ol>
+        {% for f in all_fault_record  %}
+        <li>{{f}}</li>
+        {% endfor %}
+        </ol>
+        </p>
+    <p><b>Total Repair Record:</b> &nbsp{{Total_Repair_Record}}</p>
+    <p><b>Suspected Faults:</b> &nbsp {{totalFaultCounter}}
+        <table class="display table-striped table-bordered table-sm" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Fault</th>
+                    <th>Total</th>
+                    <th>Percentage</th>
+                </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for key,value in suspected_faults.items %}
+                    <tr>
+                            <td>{{key}}</td>
+                            <td>{{value.count}}</td>
+                            <td>{{value.percent}} &nbsp %</td>
+                    </tr>
+                    {%endfor%}
+                
+               
+            </tbody>
+            </table>
+       
+    </p>
+
+   
+{% endblock content %}

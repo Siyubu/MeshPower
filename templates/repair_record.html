@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}New board{% endblock title %}
+{% load static %}
+
+{% block content %}
+
+<h1>Board Repair Record </h1>
+<form method="post">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+            {% if field.name == 'suspect_fault_after_checkup' %} 
+            {{ field}}
+            <a href="{% url 'getBoardTypefromSerial' form.board_serial_number.value %}"> Add a board Type Fault</a>
+            {% else %}
+            {{ field|add_class:'form-control' }}
+            {% endif %}
+            {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div> 
+    {% endfor %}
+    <br />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span> Save
+        </button>
+        <a href="{% url 'home' %}" class="btn btn-default">Cancel</a>    
+    </div>
+</form>
+{% endblock content %}

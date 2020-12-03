@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Board History{% endblock title %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+<br />
+<br />
+<div style="text-align: center;">
+    <h2 > Board History</h2>
+</div>
+<div style="text-align: right;">
+    <a href="{% url 'rrepair' boardDetail.serial_number %}" class="btn btn-primary">Add a Repair Record</a>
+</div>
+
+
+
+<ul >
+    <li><p class="text-dark"><b>Board ID:</b>&nbsp {{ boardDetail.board_id }}</p></li>
+    <li><p class="text-dark"><b>Board Type:</b>&nbsp{{ boardDetail.board_type }}</p></li>
+    <li><p class="text-dark"><b>Board Serial Number:</b> &nbsp{{ boardDetail.serial_number }}</p></li>
+    <li><p class="text-dark"><b>Board Mac Number:</b> &nbsp{{ boardDetail.mac_no }}</p></li>
+    <li><p class="text-dark"><b>Board Batch Number:</b> &nbsp{{ boardDetail.batch_no }}</p></li>
+    <li><p class="text-dark"><b>Board status:</b> &nbsp{{ boardDetail.conclusion }}</p></li>
+    <li><p class="text-dark"><b>Board total repair record:</b> &nbsp{{ boardDetail.repair_record_set.all.count }}</p></li>
+    <ol>
+        <table class="display table-striped table-bordered table-sm" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Repair Record</th>
+                    <th>Repair Record Progress</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for rep in boardDetail.repair_record_set.all %}
+                    <tr>
+                        <td>
+                            <li>
+                                <p class="text-dark"><b>Repair record ID:</b> &nbsp{{ rep.repair_record_id }}</p>
+                                <p class="text-dark"><b>Repair record Opened Date:</b> &nbsp{{ rep.open_date }}</p>
+                                <p class="text-dark"><b>Repair record Closed Date:</b> &nbsp{{ rep.closed_date }}</p>
+                                <p class="text-dark"><b>Repair record Issue Number:</b> &nbsp{{ rep.issue_no }}</p>
+                                <p class="text-dark"><b>Repair record Suspected Faults:</b> &nbsp
+                                    <ul>
+                                        {%for r in rep.suspect_fault_after_checkup.all %}
+                                        <li>{{r}}</li>
+                                        {%endfor%}
+                                    </ul>
+                                </p>
+                                <p class="text-dark"><b>Total Repair record Progress :</b> &nbsp{{ rep.repair_record_progress_set.all.count }}</p>
+                                <a href="{% url 'repair_record_progress' rep.repair_record_id %}" class="btn btn-info">Add a Repair Record Progress</a>
+                            </td>
+                            <td>
+                                <ul style="list-style-type:square;"> 
+                                    {% for rep_prog in  rep.repair_record_progress_set.all %}
+                                    <li>
+                                        <p class="text-dark"><b>Progress record  ID:</b> &nbsp{{ rep_prog.board_repair_record_progress_id }}</p>
+                                        <p class="text-dark"><b>Progress record  Date:</b> &nbsp{{ rep_prog.date }}</p>
+                                        <p class="text-dark"><b>Progress record  Staff Name:</b> &nbsp{{ rep_prog.staff}}</p>
+                                        <p class="text-dark"><b>Work done:</b> &nbsp{{ rep_prog.workdone}}</p>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </td>
+                </tr>
+                <br>
+            </tbody>
+        </table>  
+    </ul>
+{% endblock content %}

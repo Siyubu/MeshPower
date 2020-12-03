@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Repair Records{% endblock title %}
+{% load static %}
+{% block content %}
+{% csrf_token %}
+{% for b in boards %}
+    <p class="text-dark"><b>Board ID:</b>&nbsp {{ b.board_id }}</p>
+    <p class="text-dark"><b>Board Serial Number:</b> &nbsp{{ b.serial_number }}</p>
+    <ol>
+        {% for rep in b.repair_record_set.all %}
+        
+           <li>Repair record ID:&nbsp<b>{{ rep.repair_record_id }}</b></li>
+            {%endfor%} 
+            </ol>
+        {{'---------------------------------------------------------------------------'}}
+     
+        {%endfor%}
+{% endblock content %}
