@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
 from django.contrib import messages
@@ -7,12 +8,9 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.forms import inlineformset_factory
 from .models import board,board_type,board_faults_categories,repair_record
- 
-
-
 from mp.forms import BoardTypeForm, BoardFaultsCategoriesForm, BoardForm, RepairRecordForm, RepairRecordProgressForm
 
-
+@ login_required
 def index(request):
    
     Board_Type=board_type.objects.all()

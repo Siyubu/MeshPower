@@ -42,9 +42,9 @@ class BoardFaultsCategoriesForm(forms.ModelForm):
 class BoardForm(forms.ModelForm):
     
     status_choices = (
-        ('opt0', 'Pass'),
-        ('opt1', 'Fail'),
-        ('opt1', 'in progress'),
+        ('Pass', 'Pass'),
+        ('Fail', 'Fail'),
+        ('In Progress', 'In Progress'),
         )
     status= forms.CharField(label='status', widget=forms.RadioSelect(choices=status_choices))
     class Meta:

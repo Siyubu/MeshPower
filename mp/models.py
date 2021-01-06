@@ -2,9 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 
 status_choices = (
-        ('opt0', 'Pass'),
-        ('opt1', 'Fail'),
-        ('opt1', 'in progress'),
+        ('Pass', 'Pass'),
+        ('Fail', 'Fail'),
+        ('In Progress', 'In Progress'),
         )
 
 class board_type(models.Model):
