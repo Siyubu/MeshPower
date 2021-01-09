@@ -17,7 +17,7 @@
 
             {% if field.name == 'suspect_fault_after_checkup' %} 
             {{ field}}
-            <a href="{% url 'getBoardTypefromSerial' form.board_serial_number.value %}"> Add a board Type Fault</a>
+            <a href="{% url 'getBoardTypefromSerial' form.board_serial_number.value %}" target="_blank"> Add a board Type Fault</a>
             {% else %}
             {{ field|add_class:'form-control' }}
             {% endif %}

@@ -5,7 +5,7 @@
 <div class="container h-100">
 <div class="d-flex justify-content-center h-100">
 <div  class="d-flex justify-content-center sub-title">
-    <h2>MeshPower Boards' Recording System</h2>
+    <h1>MeshPower Boards' Recording System</h1>
 </div>
 <div class="user_card">
     <div class="d-flex justify-content-center">
@@ -27,14 +27,20 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        <br/>
 
         <div class="form-group login_container">
             <button type="submit" class="btn btn-success item">
-                <span class="glyphicon glyphicon-ok"></span> Save
+                <span class="glyphicon glyphicon-ok"></span> Sign Up
             </button>
             <a href="{% url 'home' %}" class="btn btn-warning item">Cancel</a>
         </div>
     </form>
+    <div>
+        <br/>
+        <br/>
+    <p>Already have an account? <a href="{% url 'login' %}" class="btn-info">Login</a></p>
+    </div>
     </div>
     </div>
     </div>

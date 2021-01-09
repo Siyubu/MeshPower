@@ -9,11 +9,11 @@
             width: 100%;
         }
 
-        #example_filter {
+        #boards_filter {
             float: right;
         }
 
-        #example_paginate {
+        #boards_paginate {
             float: right;
         }
 
@@ -31,7 +31,7 @@
 {% block extra_scripts %}
     <script>
         $(document).ready(function () {
-            $('#example').DataTable({
+            $('#boards').DataTable({
                 searching:true,
             });  
         });
@@ -77,7 +77,7 @@
     <hr/>
     {#<div id="container">#}
 
-    <table id="example" class="display table-striped table-bordered table-sm" style="width:100%">
+    <table id="boards" class="display table-striped table-bordered table-sm" style="width:100%">
         <thead>
         <tr>
             <th>Board ID</th>

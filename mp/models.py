@@ -3,7 +3,7 @@ from django.db import models
 
 status_choices = (
         ('Pass', 'Pass'),
-        ('Fail', 'Fail'),
+        ('Unfixable', 'Unfixable'),
         ('In Progress', 'In Progress'),
         )
 

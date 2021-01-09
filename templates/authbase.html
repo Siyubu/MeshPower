@@ -15,14 +15,14 @@
 		}
 		.user_card {
             width: 450px;
-			margin-top: 80px;
+			margin-top: 90px;
 			margin-bottom: auto;
 			background: #17a2b8;
 			position: relative;
 			display: flex;
 			justify-content: center;
 			flex-direction: column;
-			padding: 25px 50px 75px;
+			padding: 25px 50px 55px;
 			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -42,7 +42,7 @@
 			margin: 0 15px;
 		  }
        .sub-title{
-            margin-top: 180px;
+            margin-top: 200px;
             margin-left: 150px;
         }
 
@@ -63,7 +63,7 @@
                         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                     </li>
                 {% else %}
-                    <a class="nav-link" href="{% url 'login' %}">Log In </a>
+                    <!-- <a class="nav-link" href="{% url 'login' %}">Log In </a> -->
                         
                 {% endif %}
             </li>

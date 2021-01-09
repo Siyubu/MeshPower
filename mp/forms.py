@@ -43,7 +43,7 @@ class BoardForm(forms.ModelForm):
     
     status_choices = (
         ('Pass', 'Pass'),
-        ('Fail', 'Fail'),
+        ('Unfixable', 'Unfixable'),
         ('In Progress', 'In Progress'),
         )
     status= forms.CharField(label='status', widget=forms.RadioSelect(choices=status_choices))
