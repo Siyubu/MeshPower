@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from django.db import models
 
 status_choices = (
         ('Pass', 'Pass'),
         ('Unfixable', 'Unfixable'),
         ('In Progress', 'In Progress'),
+        ('In Test Mode', 'In Test Mode'),
         )
 
 class board_type(models.Model):
@@ -35,9 +37,9 @@ class board_faults_categories(models.Model):
 class board(models.Model):
     board_id = models.AutoField(primary_key=True)
     board_type = models.ForeignKey(board_type, on_delete=models.CASCADE)
-    mac_no = models.CharField(max_length=255, default='')
+    mac_no = models.CharField(max_length=17,validators=[RegexValidator('^((([A-F][A-F]+[:-]){5}|([a-fA-F0-9][a-fA-F0-9]+[:]){5})([a-fA-F0-9][a-fA-F0-9])$)')], default='')
     batch_no = models.CharField(max_length=255, default='')
-    serial_number = models.CharField(max_length=255,unique=True, default='')
+    serial_number = models.CharField(max_length=12,unique=True,validators=[RegexValidator('^[0-9]*$')], default='')
     status = models.CharField(max_length=200, choices=status_choices,verbose_name='status')
 
     def __str__(self):

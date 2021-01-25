@@ -45,6 +45,7 @@ class BoardForm(forms.ModelForm):
         ('Pass', 'Pass'),
         ('Unfixable', 'Unfixable'),
         ('In Progress', 'In Progress'),
+        ('In Test Mode', 'In Test Mode'),
         )
     status= forms.CharField(label='status', widget=forms.RadioSelect(choices=status_choices))
     class Meta:

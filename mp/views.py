@@ -86,9 +86,10 @@ class SignUpView(generic.CreateView):
 def searchBoard(request):
     serial_number=request.GET.get('serialNum')
     if (serial_number!=''):
-        init={'board_serial_number':serial_number}
+        serial_with_accepted_length=serial_number[0:12]
+        init={'board_serial_number':serial_with_accepted_length}
         try:
-            oneBoard= board.objects.get(serial_number=serial_number)
+            oneBoard= board.objects.get(serial_number=serial_with_accepted_length)
             return render(request,'detail.html', {'boardDetail':oneBoard})
         except ObjectDoesNotExist:
             form = BoardForm(initial=init)
