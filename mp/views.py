@@ -96,6 +96,19 @@ def searchBoard(request):
             return redirect('board')
     return redirect('home')
 
+
+def searchByMac(request):
+    mac_number=request.GET.get('macNum')
+    if (mac_number!=''):
+        init={'mac_no':mac_number}
+        try:
+            oneBoard= board.objects.get(mac_no=mac_number)
+            return render(request,'detail.html', {'boardDetail':oneBoard})
+        except ObjectDoesNotExist:
+            form = BoardForm(initial=init)
+            return redirect('board')
+    return redirect('home')   
+
 def detail(request,board_id):
     oneBoard= board.objects.get(board_id=board_id)
     return render(request,'detail.html', {'boardDetail':oneBoard})
@@ -149,7 +162,7 @@ def update(request, board_id):
         form = BoardForm(request.POST, instance=oneBoard)
         if form.is_valid():
             form.save()
-        return redirect('home')
+        return redirect('board_history',board_id)
     else:
         return render(request, 'board.html', {'form': form})
 
@@ -166,6 +179,19 @@ def deleteType(request, board_type_id):
         Board_Type.delete()
         return redirect('home')
     return render(request, 'delete_board_type.html', {'item':Board_Type})
+
+def updateTypeFault(request,board_issue,board_type):
+    Board_Type=board_faults_categories.objects.all().filter(board_type=board_type)
+    Board_Type_fault=Board_Type.get(board_issue=board_issue)
+    form = BoardFaultsCategoriesForm(instance = Board_Type_fault)
+    if request.method == 'POST':
+        form = BoardFaultsCategoriesForm(request.POST, instance=Board_Type_fault)
+        if form.is_valid():
+            form.save()
+        return redirect('board_type_history',board_type)
+    else:
+        return render(request, 'board_fault.html', {'form': form})
+
 
 
 def repair(request,serialNum):

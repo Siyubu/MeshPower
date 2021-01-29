@@ -10,12 +10,12 @@
 		<div class="card card-body">
 
 
-			<p>Are you sure you want to delete "{{item.name}}"?</p>
+			<p>Are you sure you want to delete "{{item.board_issue}}"?</p>
 
-			<form action="{% url 'delete_board_type' item.board_type_id  %}" method="POST">
+			<form action="{% url 'edit_board_type_fault' item.board_issue item.board_type.board_type_id %}" method="POST">
 				
 				{% csrf_token %}
-				<a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+				<a class="btn btn-warning" href="{% url 'board_type_history'  item.board_type.board_type_id %}">Cancel</a>
 
 				<button class="btn btn-danger" type="submit" name="Confirm">Confirm</button>
 			</form>

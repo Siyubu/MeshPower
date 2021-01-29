@@ -26,6 +26,14 @@
             color:red;
             display: none;
         }
+        .mac{
+            display:flex;
+            padding-right: 16%;
+        }
+        .serial{
+            display: flex;
+            padding-left: 2%;
+        }
     </style>
 {% endblock extra_css %}
 {% block extra_scripts %}
@@ -40,10 +48,21 @@
 {% block content %}
 
     <br>
-    <form method="GET" class="detail-board" action="{% url 'search_board' %}">
-        <input name="serialNum" value='{{ request.GET.serialNum }}' placeholder="Board serial number...">
-        <button class='btn btn-success' type='submit'>Search</button>
+    <div class="d-flex justify-content-between">
+    <form class='serial' method="GET"  action="{% url 'search_board' %}">
+        <div class='serial'>
+            <input name="serialNum" value='{{ request.GET.serialNum }}' placeholder="Board serial number...">
+            <button class='btn btn-success' type='submit'>Search</button>
+        </div>
     </form>
+    <form class='mac'  method="GET"  action="{% url 'search_board_by_mac' %}">
+        <div class='mac'>
+            <input name="macNum" value='{{ request.GET.macNum }}' placeholder="Board MAC number...">
+            <button class='btn btn-success' type='submit'>Search</button>
+        </div>
+    </form>
+</div>
+
     <div class="notif">
         <p>Empty serial number not allowed</p>
     </div>

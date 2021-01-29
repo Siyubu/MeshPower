@@ -14,12 +14,11 @@
     <a href="{% url 'new_board' boardTypeDetail.board_type_id %}" float="right"><span class="btn btn-primary"> Add a board Type Fault</span></a>
     <a href="{% url 'delete_board_type' boardTypeDetail.board_type_id %}" float="left"><span class="btn btn-danger">Delete This Board Type</span></a>
     </div>
-    <p><b>Board Type ID:</b>&nbsp {{ boardTypeDetail.board_type_id }}</p>
     <p><b>Board Type Name:</b>&nbsp{{ boardTypeDetail.name }}</p>
     <p><b>board type fault:</b>
         <ol>
         {% for f in all_fault_record  %}
-        <li>{{f}}</li>
+        <li>{{f}} &nbsp;&nbsp; <a href="{% url 'edit_board_type_fault' f boardTypeDetail.board_type_id %}"><span class="btn-info">Edit this Fault</span></a></li>
         {% endfor %}
         </ol>
         </p>
@@ -33,8 +32,7 @@
                     <th>Percentage</th>
                 </tr>
                 </thead>
-                <tbody>
-                    
+                <tbody>  
                     {% for key,value in suspected_faults.items %}
                     <tr>
                             <td>{{key}}</td>
@@ -42,12 +40,8 @@
                             <td>{{value.percent}} &nbsp %</td>
                     </tr>
                     {%endfor%}
-                
-               
             </tbody>
             </table>
-       
     </p>
 
-   
 {% endblock content %}
